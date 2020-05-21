@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Recherche de film</title>
+    <link rel="stylesheet" href="../public/styles.css"/>
+</head>
+<body>
+    <%- include('includes/header') %>
+    
+    <div class="container">
+    <h1>CONNEXION</h1>
+        <div class="form-group">
+            <label for="titre">USERNAME :</label>
+            <input type="text" class="form-control" name="username" id="username">
+        </div>
+        <div class="form-group">
+            <label for="password">MOT DE PASSE :</label>
+            <input type="password" class="form-control" name="password" id="password">
+        </div>
+        
+        <input type="submit" name="submit_login" id="submit_login" class="btn btn-success" value="Connexion">
+    </div>
+
+    <%- include('includes/footer') %>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script>
+    
+    <script>
+        
+        
+        const confirm_login = document.querySelector("#submit_login");
+        confirm_login.addEventListener('click',login);
+        
+        function login(event){
+
+            event.preventDefault();
+            const username = document.querySelector('#username').value;
+            const password = document.querySelector('#password').value;
+            
+            console.table([username,password]);
+            
+            axios.post('/login',{username:username,password:password})
+            .then((response) => {
+                localStorage.setItem('token',response.data);                             
+            })
+        }
+    
+    </script>
+</body>
+</html>

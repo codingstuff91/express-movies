@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Recherche de film</title>
+    <link rel="stylesheet" href="../public/styles.css"/>
+</head>
+<body>
+    <%- include('includes/header') %>
+
+    <div class="container">
+        <h1>RECHERCHE DE FILMS</h1>
+        <div class="row">
+            <div class="col-6">
+                <div class="form-group">
+                    <input type="text" name="title" id="title" class="form-control">
+                </div>
+            </div>
+            <div class="col-6">
+                <button id="confirm_search" class="btn btn-success">Rechercher</button>
+            </div>
+        </div>
+
+        <div id="results" class="mt-4"></div>
+        
+        <%- include('includes/footer') %>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script>
+    <script>
+        const API_KEY = '<%= process.env.API_KEY %>';
+        console.log('verif API KEY',API_KEY);
+        
+        const title = document.querySelector('#title');
+        const results = document.querySelector('#results');
+
+        const confirm_search = document.querySelector("#confirm_search");
+
+        confirm_search.addEventListener('click',searchMovie)
+
+        function searchMovie(){
+
+            results.innerHTML = '';
+
+            const query = `https://api.themoviedb.org/3/search/movie/?api_key=${API_KEY}&query=${title.value}&language=fr`
+
+            axios.get(query)
+            .then((response) => {
+                response.data.results.forEach((element) => {
+                    let movieDiv = document.createElement('div');
+                    movieDiv.innerHTML = element.title+' | '+element.release_date.substr(0,4)+"<hr>";
+                    results.appendChild(movieDiv);
+                });
+            })
+        }
+    
+    </script>
+</body>
+</html>

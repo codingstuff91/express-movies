@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Page des Films</title>
+    <link rel="stylesheet" href="../public/styles.css"/>
+</head>
+<body>
+    <%- include('includes/header') %>
+
+    <div class="container">
+        <h1>PAGE DES FILMS</h1>
+        <div>
+            Voici la liste des films du moment : 
+            <% for(movie of films) { %>
+                <h2><%= movie.movieTitle %></h2>
+                <h3><%= movie.movieYear %></h3>
+                <hr>
+            <% } %>
+        </div>
+        <form action="/movies/add" method="POST">
+            <div>
+                <label for="title">Titre du film</label>
+                <input type="text" name="title">
+            </div>
+            <div>
+                <label for="year">Annee de sortie</label>
+                <input type="text" name="year">
+            </div>
+            <input type="submit" value="Ajouter le film">
+        </form>
+        
+        <%- include('includes/footer') %>
+    </div>
+
+</body>
+</html>
