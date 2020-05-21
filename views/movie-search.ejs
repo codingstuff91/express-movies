@@ -44,7 +44,7 @@
 
             results.innerHTML = '';
 
-            const query = `https://api.themoviedb.org/3/search/movie/?api_key=${API_KEY}&query=${title.value}&language=fr`
+            const query = `http://api.themoviedb.org/3/search/movie/?api_key=${API_KEY}&query=${title.value}&language=fr`
 
             axios.get(query)
             .then((response) => {
